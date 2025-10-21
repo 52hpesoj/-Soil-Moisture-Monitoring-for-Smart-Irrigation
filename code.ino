@@ -7,13 +7,13 @@
 #include <BlynkSimpleEsp32.h>
 
 char auth[] = BLYNK_AUTH_TOKEN;
-char ssid[] = "Ombiko myre";
+char ssid[] = "Andriod";
 char pass[] = "12345678";
 
 #define SOIL_PIN 34
 #define RELAY_PIN 23
 
-int threshold = 1800; // Adjust based on testing
+int threshold = 2000;
 
 void setup() {
   Serial.begin(115200);
@@ -29,19 +29,18 @@ void loop() {
   Serial.print("Moisture: ");
   Serial.println(moisture);
 
-  // Send sensor value to Blynk app
   Blynk.virtualWrite(V1, moisture);
 
-  // Control relay based on soil moisture
   if (moisture > threshold) {
-    digitalWrite(RELAY_PIN, LOW);   // Turn ON relay (soil dry)
-    Blynk.virtualWrite(V2, 1);       // Send relay status to app
+    digitalWrite(RELAY_PIN, LOW);
+    Blynk.virtualWrite(V2, 1);
     Serial.println("Soil is Dry → Relay ON");
   } else {
-    digitalWrite(RELAY_PIN, HIGH);    // Turn OFF relay (soil wet)
+    digitalWrite(RELAY_PIN, HIGH);
     Blynk.virtualWrite(V2, 0);
     Serial.println("Soil is Wet → Relay OFF");
   }
 
   delay(2000);
+
 }
