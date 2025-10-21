@@ -1,19 +1,18 @@
 #define BLYNK_TEMPLATE_ID "TMPL3nIJM4WYV"
-#define BLYNK_TEMPLATE_NAME "smart moisture monitoring esp32"
+#define BLYNK_TEMPLATE_NAME "smart moisture monitoring esp8266"
 #define BLYNK_AUTH_TOKEN "goAwH16SgRwtzXjRABzaAsPrRFg2tY-1"
 
-#include <WiFi.h>
-#include <WiFiClient.h>
-#include <BlynkSimpleEsp32.h>
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
 
 char auth[] = BLYNK_AUTH_TOKEN;
 char ssid[] = "Andriod";
 char pass[] = "12345678";
 
-#define SOIL_PIN 34
-#define RELAY_PIN 23
+#define SOIL_PIN A0       // ESP8266 has only one analog pin
+#define RELAY_PIN D1      // choose any digital pin like D1, D2, etc.
 
-int threshold = 2000;
+int threshold = 600;
 
 void setup() {
   Serial.begin(115200);
@@ -31,7 +30,7 @@ void loop() {
 
   Blynk.virtualWrite(V1, moisture);
 
-  if (moisture > threshold) {
+  if (moisture < threshold) {
     digitalWrite(RELAY_PIN, LOW);
     Blynk.virtualWrite(V2, 1);
     Serial.println("Soil is Dry → Relay ON");
@@ -42,5 +41,4 @@ void loop() {
   }
 
   delay(2000);
-
 }
