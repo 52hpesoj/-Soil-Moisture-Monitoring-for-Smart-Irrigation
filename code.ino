@@ -9,8 +9,8 @@ char auth[] = BLYNK_AUTH_TOKEN;
 char ssid[] = "Andriod";
 char pass[] = "12345678";
 
-#define SOIL_PIN A0       // ESP8266 has only one analog pin
-#define RELAY_PIN D1      // choose any digital pin like D1, D2, etc.
+#define SOIL_PIN A0   
+#define RELAY_PIN D1
 
 int threshold = 600;
 
@@ -42,3 +42,4 @@ void loop() {
 
   delay(2000);
 }
+
